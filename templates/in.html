@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirusTotal Scanner</title>
+</head>
+<body>
+    <h1>VirusTotal Scanner</h1>
+
+    <!-- نموذج لرفع الملفات -->
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Upload File(s):</label><br>
+        <input type="file" id="file" name="file" multiple><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <br>
+
+    <!-- نموذج لإدخال الروابط -->
+    <form action="/scan" method="post">
+        <label for="link">Enter URL(s) to scan (separated by comma):</label><br>
+        <textarea id="link" name="link" rows="4" cols="50"></textarea><br><br>
+        <input type="submit" value="Scan Links">
+    </form>
+
+    <br>
+
+    <!-- نموذج لإدخال عناوين IP -->
+    <form action="/scan_ip" method="post">
+        <label for="ip">Enter IP Address(es) to scan (separated by comma):</label><br>
+        <textarea id="ip" name="ip" rows="4" cols="50"></textarea><br><br>
+        <input type="submit" value="Scan IP Addresses">
+    </form>
+</body>
+</html>

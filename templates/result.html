@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .bg{
+            background-image: url("{{ url_for('static', filename='11.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0);
+            margin-top: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #88C5B5;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #88C5B5;
+        }
+        
+        button {
+            display: block;
+            width: 100px;
+            margin: 20px auto;
+            padding: 10px;
+            background: #88C5B5;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        button:hover {
+            background: #90d4c2;
+        }
+        .sub-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .sub-table, .sub-table th, .sub-table td {
+            border: 1px solid #88C5B5;
+        }
+        .sub-table th, .sub-table td {
+            padding: 8px;
+            text-align: left;
+        }
+        .sub-table th {
+            background-color: #88C5B5;
+        }
+
+        .a{ padding:200px 1px 10px 120px; margin:0 0 0 0; font-size:80px; font-family:Georgia, 'Times New Roman', Times, serif; color: #249387;}
+        .b{width: 50px;}
+        /*.c{background-color:#595B83}*/
+        .d{padding:30px 1px 10px 120px; color: #FBF7E0; font-size:20px;}
+        .e{width:1000px; padding: 60px 250px 0px 250px;}
+        .f{ width:1334px;}
+        .topn {
+            overflow: hidden;
+            background-color: transparent;
+          }
+          
+          .topn a {
+            float: left;
+            color: #88C5B5;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+          }
+          
+          .topn a:hover {
+            background-color: #ddd;
+            color: white;
+          }
+          
+          .topn a.active {
+            background-color:transparent;
+            color: #88C5B5;
+          }
+          
+          .topn-right {
+            float: right;
+          }
+          
+
+    .g{font-family:Georgia; font-size:30px ;}
+            .h{font-size:13px ;}
+            #i{font-size:80px; padding: 0 0 25px;}
+            #c{font-size:75px; padding: 0 0 25px;}
+            .yy{color: white; text-align: center; margin-top: 5px;}
+            .xx{background-color:#13182C; margin-top:105px ; height:75px ; }
+            .j{margin-left:-400px;}
+            .gg{color: #88C5B5; font-size :20px}
+            
+
+
+    </style>
+</head>
+<body class="bg">
+
+    <div class="topn">
+        <a class="active" href="{{url_for('home2')}}"><span class="g" ><b>DAZAR</b></span></a>
+       
+       
+         <div class="topn-right">
+          <a class="topn-right" href="{{url_for('home2')}}">Home</a>
+          <a class="topn-right" href="{{url_for('index')}}">Search</a>
+           <a class="topn-right" href="{{url_for('about')}}">About</a>
+            <a class="topn-right" href="{{url_for('service')}}">Service</a>
+            <a class="topn-right" href="{{url_for('signin')}}">Sign in</a>
+         <a class="topn-right" href="{{url_for('signup')}}">Sign up <i class="fa fa-sign-in" style="font-size:16px"></i></a>
+        </div>
+
+      </div>
+
+    <div class="container">
+        <h1>Scan Results</h1>
+        {% if ip_results %}
+            <h2>IP Scan Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>IP Address</th>
+                        <th>Analysis Results</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in ip_results %}
+                        <tr>
+                            <td>{{ result.get('data', {}).get('id') }}</td>
+                            <td>
+                                {% if result.get('data', {}).get('attributes', {}).get('last_analysis_results') %}
+                                    <table class="sub-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Engine Name</th>
+                                                <th>Category</th>
+                                                <th>Result</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for engine, details in result.get('data', {}).get('attributes', {}).get('last_analysis_results', {}).items() %}
+                                                <tr>
+                                                    <td>{{ engine }}</td>
+                                                    <td>{{ details.get('category') }}</td>
+                                                    <td>{{ details.get('result') }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <p>No analysis results available.</p>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        {% if url_results %}
+            <h2>URL Scan Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>URL</th>
+                        <th>Analysis Results</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in url_results %}
+                        <tr>
+                            <td>{{ result.get('url') }}</td>
+                            <td>
+                                {% if result.get('data', {}).get('attributes', {}).get('results') %}
+                                    <table class="sub-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Engine Name</th>
+                                                <th>Category</th>
+                                                <th>Result</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for engine, details in result.get('data', {}).get('attributes', {}).get('results', {}).items() %}
+                                                <tr>
+                                                    <td>{{ engine }}</td>
+                                                    <td>{{ details.get('category') }}</td>
+                                                    <td>{{ details.get('result') }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <p>No analysis results available.</p>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        {% if file_results %}
+            <h2>File Scan Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Analysis Results</th>
+                        <th>Stats</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in file_results %}
+                        <tr>
+                            <td>{{ result.get('filename') }}</td>
+                            <td>
+                                {% if result.get('data', {}).get('attributes', {}).get('last_analysis_results') %}
+                                    <table class="sub-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Engine Name</th>
+                                                <th>Category</th>
+                                                <th>Result</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for engine, details in result.get('data', {}).get('attributes', {}).get('last_analysis_results', {}).items() %}
+                                                <tr>
+                                                    <td>{{ engine }}</td>
+                                                    <td>{{ details.get('category') }}</td>
+                                                    <td>{{ details.get('result') }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <p>No analysis results available.</p>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <table class="sub-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Statistic</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for stat, value in result.get('data', {}).get('attributes', {}).get('stats', {}).items() %}
+                                            <tr>
+                                                <td>{{ stat }}</td>
+                                                <td>{{ value }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        {% if not ip_results and not url_results and not file_results %}
+            <p>No results to display.</p>
+        {% endif %}
+        <button onclick="goBack()">Go Back</button>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

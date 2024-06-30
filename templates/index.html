@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+ <style>
+     body {
+         height: 100%;
+         margin: 0;
+         color:#88C5B5;
+     }
+     .bg{
+         background-image: url("{{ url_for('static', filename='11.jpg') }}");
+         background-size: cover;
+         background-position: center;
+         background-repeat: no-repeat;
+     }
+     h1 {
+         text-align: center;
+     }
+     .form-container {
+         margin-bottom: 20px;
+     }
+     table {
+         width: 100%;
+         border-collapse: collapse;
+         margin-top: 20px;
+         margin-left: -200px;
+     }
+     
+     th, td {
+         border: 1px solid #ccc;
+         padding: 8px;
+         text-align: left;
+     }
+     th {
+         background-color: #f2f2f2;
+     }
+     .sub-table {
+         width: 100%;
+         border-collapse: collapse;
+         margin-top: 10px;
+     }
+     .sub-table th, .sub-table td {
+         border: 1px solid #ccc;
+         padding: 5px;
+         text-align: left;
+     }
+     .sub-table th {
+         background-color: #f2f2f2;
+     }
+     #results {
+         margin-top: 20px;
+     }
+
+     .a{ padding:200px 1px 10px 120px; margin:0 0 0 0; font-size:80px; font-family:Georgia, 'Times New Roman', Times, serif; color: #249387;}
+         .b{width: 50px;}
+         /*.c{background-color:#595B83}*/
+         .d{padding:30px 1px 10px 120px; color: #FBF7E0; font-size:20px;}
+         .e{width:1000px; padding: 60px 250px 0px 250px;}
+         .f{ width:1334px;}
+
+         .tablink {
+             background-color: transparent;
+             color: white;
+             float: left;
+             border: none;
+             outline: none;
+             cursor: pointer;
+             padding: 14px 16px;
+             font-size: 17px;
+             width: 25%;
+           }
+           
+           .tablink:hover {
+             background-color: #777;
+           }
+           
+           /* Style the tab content */
+           .tabcontent {
+             color: white;
+             display: none;
+             padding: 50px;
+             text-align: center;
+           }
+           
+           #FILE {padding: 150px 0 20px;}
+           #URL {padding: 150px 0 20px;}
+           #SEARCH {padding: 150px 0 20px;}
+
+           .lab{
+             display: inline-block;
+             background-color: #88C5B5;
+             color: white;
+             font-family: sans-serif;
+             cursor: pointer;
+             margin-top: 1rem;
+             padding: 0.5em;
+             border: thin solid grey;
+             border-radius: 3px;
+           }
+           .lab{
+             display: inline-block;
+             background-color: #88C5B5;
+             color: white;
+             font-family: sans-serif;
+             cursor: pointer;
+             margin-top: 1rem;
+             font-size: 15px;
+             font-weight: bold;
+             padding: 0.5em;
+             border: thin solid grey;
+             border-radius: 3px;
+           }
+
+           
+          
+
+           .topn {
+             overflow: hidden;
+             background-color: transparent;
+           }
+           
+           .topn a {
+             float: left;
+             color: #88C5B5;
+             text-align: center;
+             padding: 14px 16px;
+             text-decoration: none;
+             font-size: 17px;
+           }
+           
+           .topn a:hover {
+             background-color: #ddd;
+             color: white;
+           }
+           
+           .topn a.active {
+             background-color:transparent;
+             color: #88C5B5;
+           }
+           
+           .topn-right {
+             float: right;
+           }
+           
+
+     .g{font-family:Georgia; font-size:30px ;}
+             .h{font-size:13px ;}
+             #i{font-size:80px; padding: 0 0 25px;}
+             #c{font-size:75px; padding: 0 0 25px;}
+             .yy{color: white; text-align: center; margin-top: 5px;}
+             .xx{background-color:#13182C; margin-top:105px ; height:75px ; }
+             .j{margin-left:-400px;}
+             .gg{color: #88C5B5; font-size :20px}
+
+             input::file-selector-button {
+                font-weight: bold;
+                color: white;
+                background-color: #88C5B5;
+                padding: 0.5em;
+                border: thin solid grey;
+                border-radius: 3px;
+                margin-left: 40px;
+                
+              }
+              .ss{padding: 20px;}
+              
+            
+             
+             
+ </style>
+</head>
+<body class="bg">
+
+    <div class="topn">
+        <a class="active" href="{{url_for('home2')}}"><span class="g" ><b>DAZAR</b></span></a>
+       
+       
+         <div class="topn-right">
+          <a class="topn-right" href="{{url_for('home2')}}">Home</a>
+          <a class="topn-right" href="{{url_for('index')}}">Search</a>
+           <a class="topn-right" href="{{url_for('about')}}">About</a>
+            <a class="topn-right" href="{{url_for('service')}}">Service</a>
+            <a class="topn-right" href="{{url_for('signin')}}">Sign in</a>
+         <a class="topn-right" href="{{url_for('signup')}}">Sign up <i class="fa fa-sign-in" style="font-size:16px"></i></a>
+        </div>
+
+      </div>
+
+      <div class="e" >
+
+        <div class="f" id="srh">
+            <button class="tablink" onclick="openCity('FILE', this, '')"  id="defaultOpen"><b class="gg">FILE</b></button>
+       <button class="tablink" onclick="openCity('URL', this, '')"><b class="gg">URL</b></button>
+       <button class="tablink" onclick="openCity('SEARCH', this, '')"><b class="gg">SEARCH</b></button>
+           </div>
+    
+           <div   id="FILE" class="tabcontent">
+            <div class="topnav">
+                <div class="search-container">
+            <i class="fa fa-file-o" id="c"></i>
+    <!-- نموذج لرفع الملفات -->
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Upload File(s):</label><br>
+        <input type="file" id="file" name="file" multiple class="ss" >
+<br>
+        <input type="submit" value="Submit" class="lab">
+    </form>
+    <br>
+<p class="h">By submitting data above, you are agreeing to our Terms of Service and Privacy Policy, and to the sharing of<br> your Sample submission with the security community. Please do not submit any personal information;<br> Dazar is not responsible for the contents of your submission.</p>
+
+</div>
+</div>
+    </div>
+
+    <br>
+
+    <div id="URL" class="tabcontent">
+        <div class="topnav">
+            <div class="search-container">
+                <i class="fa fa-globe" id="i"></i>
+
+    <!-- نموذج لإدخال الروابط -->
+    <form action="/scan" method="post">
+        <label for="link">Enter URL(s) to scan (separated by comma):</label><br>
+        <textarea id="link" name="link" rows="4" cols="50"></textarea><br><br>
+        <input type="submit" value="Scan Links" class="lab">
+    </form>
+    <br>
+<p class="h">By submitting data above, you are agreeing to our Terms of Service and Privacy Policy, and to the sharing of<br> your URL submission with the security community. Please do not submit any personal information;<br> Dazar is not responsible for the contents of your submission.</p>
+
+    </div>
+    </div>
+    </div>
+
+    <br>
+
+    <div id="SEARCH" class="tabcontent">
+        <div class="topnav">
+            <div class="search-container">
+                <i class="fa fa-search" id="i"></i>
+
+    <!-- نموذج لإدخال عناوين IP -->
+    <form action="/scan_ip" method="post">
+        <label for="ip">Enter IP Address(es) to scan (separated by comma):</label><br>
+        <textarea id="ip" name="ip" rows="4" cols="50"></textarea><br><br>
+        <input type="submit" value="Scan IP Addresses" class="lab">
+    </form>
+    <br>
+<p class="h" id="srh">By submitting data above, you are agreeing to our Terms of Service and Privacy Policy, and to the sharing of<br> your Sample submission with the security community. Please do not submit any personal information;<br> Dazar is not responsible for the contents of your submission.</p>
+
+            </div>
+        </div>
+    </div>
+
+      </div>
+
+      <div class="xx">
+        <footer class="container-fluid text-center">
+          <a href="#myPage" title="To Top" >
+            <i class="fa fa-sort-up" style="font-size:46px; padding:0 0 0 740px; color:#88C5B5"></i>
+          </a>
+          <p class="yy">Dazar Theme Made By <b>Dazar Team</b></p>
+        </footer>
+        </div>
+
+        <script>
+            function openCity(cityName,elmnt,color) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                  tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablink");
+                for (i = 0; i < tablinks.length; i++) {
+                  tablinks[i].style.backgroundColor = "";
+                }
+                document.getElementById(cityName).style.display = "block";
+                elmnt.style.backgroundColor = color;
+              
+              }
+              // Get the element with id="defaultOpen" and click on it
+              document.getElementById("defaultOpen").click();
+        </script>
+</body>
+</html>

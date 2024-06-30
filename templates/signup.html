@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Sign up</title>
+       <meta charset="utf-8">
+
+       <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+          }
+          
+          .bg{
+            background-image: url("{{ url_for('static', filename='11.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+          #a{
+              display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%; 
+            opacity: 0.47;}
+
+            input[type=text], input[type=password] {
+                width: 100%;
+                padding: 15px;
+                margin: 5px 0 22px 0;
+                display: inline-block;
+                border: none;
+                background: #f1f1f1;
+              }
+              
+              input[type=text]:focus, input[type=password]:focus {
+                background-color: #ddd;
+                outline: none;
+              }
+              
+              hr {
+                border: 1px solid #f1f1f1;
+                margin-bottom: 25px;
+              }
+              
+              /* Set a style for all buttons */
+              button {
+                background-color: #249387;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                opacity: 0.9;
+              }
+              
+              button:hover {
+                opacity:1;
+              }
+              
+              /* Extra styles for the cancel button */
+              .cancelbtn {
+                padding: 14px 20px;
+                background-color: #f44336;
+              }
+              
+              /* Float cancel and signup buttons and add an equal width */
+              .cancelbtn, .signupbtn {
+                float: left;
+                width: 50%;
+              }
+              
+              /* Add padding to container elements */
+              .container {
+                padding: 16px;
+                margin-top: -700px;
+                margin-left: 300px;
+                width: 800px;
+              }
+              
+              /* Clear floats */
+              .clearfix::after {
+                content: "";
+                clear: both;
+                display: table;
+              }
+              
+              /* Change styles for cancel button and signup button on extra small screens */
+              @media screen and (max-width: 300px) {
+                .cancelbtn, .signupbtn {
+                   width: 100%;
+                }
+              }
+            
+              .b{color: #249387; font-size: 20px;}
+              .f{color: #249387; font-size: 35px;}
+              .c{color: #249387;}
+              .g{font-family:Georgia; font-size:30px ;}
+             
+
+              .topn {
+                overflow: hidden;
+                background-color: transparent;
+              }
+              
+              .topn a {
+                float: left;
+                color: #88C5B5;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+              }
+              
+              .topn a:hover {
+                background-color: #ddd;
+                color: black;
+              }
+              
+              .topn a.active {
+                background-color:transparent;
+                color: #88C5B5;
+              }
+              
+              .topn-right {
+                float: right;
+              }
+              .yy{color: white; text-align: center; margin-top: 5px;}
+                .xx{background-color:#13182C; }
+                .footer {
+                  position: fixed;
+                  left: 0;
+                  bottom: 0;
+                  width: 100%;
+                  text-align: center;
+               }
+
+       </style>
+    </head>
+
+    <body class="bg">
+      <div class="topn">
+        <a class="active" href="{{url_for('home2')}}"><span class="g" ><b>DAZAR</b></span></a>
+       
+       
+         <div class="topn-right">
+          <a class="topn-right" href="{{url_for('home2')}}">Home</a>
+          <a class="topn-right" href="{{url_for('index')}}">Search</a>
+           <a class="topn-right" href="{{url_for('about')}}">About</a>
+            <a class="topn-right" href="{{url_for('service')}}">Service</a>
+            <a class="topn-right" href="{{url_for('signin')}}">Sign in</a>
+         <a class="topn-right" href="{{url_for('signup')}}">Sign up <i class="fa fa-sign-in" style="font-size:16px"></i></a>
+        </div>
+
+      </div>
+        <div>
+            <div id="a">
+                <img src="static/55.png" width="737" height="737">
+            </div>
+        </div>
+
+
+<form action="{{ url_for('signup') }}" method="POST" style="border:1px solid #ccc">
+        <div class="container">
+            <h1 class="f">Sign Up</h1>
+            <p class="b">Please fill in this form to create an account.</p>
+            <hr>
+
+            <label for="email"><b class="b">Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" required>
+
+            <label for="psw"><b class="b">Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+
+            <label for="psw-repeat"><b class="b">Repeat Password</b></label>
+            <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+
+            <label>
+                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px; "><b class="c">Remember me</b>
+            </label>
+
+            <p class="c">By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+            <div class="clearfix">
+                <button type="submit" class="signupbtn">Sign Up</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="xx">
+        <footer class="container-fluid text-center">
+            <a href="#myPage" title="To Top">
+                <i class="fa fa-sort-up" style="font-size:46px; padding:0 0 0 740px; color:#88C5B5"></i>
+            </a>
+            <p class="yy">Dazar Theme Made By <b>Dazar Team</b></p>
+        </footer>
+    </div>
+</body>
+</html>
